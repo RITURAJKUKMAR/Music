@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'img/Apple-Music-icon-circle.png' %}">
+    <title>My Music - Player</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'table.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage.css' %}">
+</head>
+
+<body>
+    <h1 class="loading">Loading data ...... <br> Please wait a moment!</h1>
+    <main>
+        <div class="header">
+            <header>
+                <div class="logo">
+                    <img src="{% static 'img/Apple-Music-icon-circle.png' %}" alt="logo">
+                    <h1>My Music</h1>
+                </div>
+                <button class="menu-btn" onclick="showMenu()"><b>☰</b></button>
+            </header>
+            <div class="menu-bar">
+                {% block menu %}
+                {% if request.session.username == 'Rituraj Kumar' %}
+                <a href="{% url 'MusicPlayer:musicUpload' %}">Upload Music</a>
+                <a href="{% url 'MusicPlayer:musicDelete' %}">Delete Music</a>
+                {% endif %}
+                <a href="{% url 'MusicPlayer:home' %}">Home</a>
+                <a href="{% url 'MusicPlayer:logout' %}">Logout</a>
+                {% endblock %}
+            </div>
+        </div>
+        {% block content %}
+        <div class="content">
+            <div class="home">
+                <div class="all-controls">
+                    <div class="details">
+                        <p>My Musics</p>
+                    </div>
+                    <div class="musicThumbnail">
+                        <img class="imgmusicThumbnail" src="{% static 'img/Apple-Music-icon-circle.png' %}"
+                            alt="musicThumbnail">
+                    </div>
+                    <audio class="audio" src=""></audio>
+                    <div class="controls">
+                        <div class="range">
+                            <span id="st-time">00:00</span> <input type="range" value="0" name="range" class="timeLine"
+                                id="range"><span id="end-time">00:00</span>
+                        </div>
+                        <div class="buttons">
+                            <button class="repeat" onclick="repeatSong()">↻</button>
+                            <button onclick="PrevSong()">⏮</button>
+                            <button class="play-btn" onclick="playPauseSong()">▷</button>
+                            <button onclick="nextSong()">⏭</button>
+                            <button class="mute" onclick="mute()">🔇</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="songs">
+                <div class="song-mediums">
+                    <a href="#" role="button" onclick="hindiSong()">HINDI</a>
+                    <a href="#" role="button" onclick="bhojpuriSong()">BHOJPURI</a>
+                    <a href="#" role="button" onclick="punjabiSong()">PUNJABI</a>
+                    <a href="#" role="button" onclick="bhaktiSong()">BHAKTI</a>
+                </div>
+                <div class="hindiSongs">
+                    <h4>HINDI</h4>
+                    <input type="hidden" value="{{TotalMusicsHindi}}" class="TotalMusics">
+                    <div class="song-type">
+                        <a href="#" role="button">ALL</a>
+                        <a href="#" role="button">ROMANTIC</a>
+                        <a href="#" role="button">SAD</a>
+                        <a href="#" role="button">RAP</a>
+                    </div>
+                    <ul>
+                        {% for m in hindiSongs %}
+                        <li onclick="playSong('HS{{forloop.counter}}')">
+                            <div class="music-div musicHS{{forloop.counter}}">
+                                <img src="{{ m.musicThumbnail.url }}" alt="musicThumbnail">
+                                <div class="details">
+                                    <p class="music-name"><b>{{m.name}} </b></p>
+                                    <p class="music-s-w">{{m.musicId}} {{m.medium}}, {{m.type}}, S : {{m.singer}}, W :
+                                        {{m.writer}}
+                                    </p>
+                                </div>
+                                <audio class="HS{{forloop.counter}}" src="{{ m.musicFile.url }}"></audio>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div style="height: 50px;width: 100%"></div>
+                </div>
+                <div class="bhojpuriSongs">
+                    <h4>BHOJPURI</h4>
+                    <input type="hidden" value="{{TotalMusicsBhojpuri}}" class="TotalMusics">
+                    <div class="song-type">
+                        <a href="#" role="button">ALL</a>
+                        <a href="#" role="button">ROMANTIC</a>
+                        <a href="#" role="button">SAD</a>
+                        <a href="#" role="button">RAP</a>
+                    </div>
+                    <ul>
+                        {% for m in BhojpuriSongs %}
+                        <li onclick="playSong('BS{{forloop.counter}}')">
+                            <div class="music-div musicBS{{forloop.counter}}">
+                                <img src="{{ m.musicThumbnail.url }}" alt="musicThumbnail">
+                                <div class="details">
+                                    <p class="music-name"><b>{{m.name}} </b></p>
+                                    <p class="music-s-w">{{m.musicId}} {{m.medium}}, {{m.type}}, S : {{m.singer}}, W :
+                                        {{m.writer}}
+                                    </p>
+                                </div>
+                                <audio class="BS{{forloop.counter}}" src="{{ m.musicFile.url }}"></audio>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="punjabiSongs">
+                    <h4>PUNJABI</h4>
+                    <input type="hidden" value="{{TotalMusicsPunjabi}}" class="TotalMusics">
+                    <div class="song-type">
+                        <a href="#" role="button">ALL</a>
+                        <a href="#" role="button">ROMANTIC</a>
+                        <a href="#" role="button">SAD</a>
+                        <a href="#" role="button">RAP</a>
+                    </div>
+                    <ul>
+                        {% for m in punjabiSongs %}
+                        <li onclick="playSong('PS{{forloop.counter}}')">
+                            <div class="music-div musicPS{{forloop.counter}}">
+                                <img src="{{ m.musicThumbnail.url }}" alt="musicThumbnail">
+                                <div class="details">
+                                    <p class="music-name"><b>{{m.name}} </b></p>
+                                    <p class="music-s-w">{{m.musicId}} {{m.medium}}, {{m.type}}, S : {{m.singer}}, W :
+                                        {{m.writer}}
+                                    </p>
+                                </div>
+                                <audio class="PS{{forloop.counter}}" src="{{ m.musicFile.url }}"></audio>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="bhaktiSongs">
+                    <h4>BHAKTI</h4>
+                    <input type="hidden" value="{{TotalMusicsBhakti}}" class="TotalMusics">
+                    <ul>
+                        {% for m in bhaktiSongs %}
+                        <li onclick="playSong('SS{{forloop.counter}}')">
+                            <div class="music-div musicSS{{forloop.counter}}">
+                                <img src="{{ m.musicThumbnail.url }}" alt="musicThumbnail">
+                                <div class="details">
+                                    <p class="music-name"><b>{{m.name}} </b></p>
+                                    <p class="music-s-w">{{m.musicId}} {{m.medium}}, {{m.type}}, S : {{m.singer}}, W :
+                                        {{m.writer}}
+                                    </p>
+                                </div>
+                                <audio class="SS{{forloop.counter}}" src="{{ m.musicFile.url }}"></audio>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="search">
+                <h1>SEARCH</h1>
+                    <p>Coming Soon ...</p>
+            </div>
+
+        </div>
+        <div class="footer">
+            <a href="#" role="button" onclick="home()">HOME</a>
+            <a href="#" role="button" onclick="songs()">SONGS</a>
+            <a href="#" role="button" onclick="Search()">SEARCH</a>
+            <a href="{% url 'MusicPlayer:profile' %}">PROFILE</a>
+        </div>
+        {% endblock %}
+    </main>
+    <script src="{% static 'app.js' %}"></script>
+    <script src="{% static 'songControls.js' %}"></script>
+</body>
+
+</html>

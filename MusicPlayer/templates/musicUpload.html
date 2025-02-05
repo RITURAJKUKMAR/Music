@@ -1,0 +1,61 @@
+{% extends "home.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="form">
+    {% if musicStatus == 1%}
+    <p>Upload Music Successfully</p>
+    {% endif %}
+    <form action="{% url 'MusicPlayer:musicUpload' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label for="#name">Music Name : </label></td>
+                <td><input type="text" name='name' id='name' placeholder="Music Name" required></td>
+            </tr>
+            <tr>
+                <td><label for="#medium">Music Medium : </label></td>
+                <td><select name="medium" id="medium" required>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Bhojpuri">Bhojpuri</option>
+                        <option value="PUNJABI">PUNJABI</option>
+                        <option value="BHAKTI">BHAKTI</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td><label for="#type">Music Type : </label></td>
+                <td><select name="type" id="type" required>
+                        <option value="Normal">Normal</option>
+                        <option value="Romantic">Romantic</option>
+                        <option value="Sad">Sad</option>
+                        <option value="Rap">Rap</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td><label for="#singer">Music singer : </label></td>
+                <td><input type="text" name='singer' id='singer' placeholder="Music singer" required></td>
+            </tr>
+            <tr>
+                <td><label for="#writer">Music writer : </label></td>
+                <td><input type="text" name='writer' id='writer' placeholder="Music writer" required></td>
+            </tr>
+            <tr>
+                <td><label for="#musicThumbnail">Music Thumbnail</label></td>
+                <td><input type="file" name="musicThumbnail" id="musicThumbnail"
+                        value="{% static 'img/Apple-Music-icon-circle.png' %}" placeholder="Music Thumbnail" required>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="#musicFile">Music File</label></td>
+                <td><input type="file" name="musicFile" id="musicFile" placeholder="Music file" required></td>
+            </tr>
+            <tr>
+                <td><input type="reset" class='btn' value="Reset"></td>
+                <td><input type="submit" class='btn' value="Upload"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

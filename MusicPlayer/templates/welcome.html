@@ -1,0 +1,54 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block menu %}
+<a href="{% url 'MusicPlayer:welcome' %}">Home</a>
+<a href="{% url 'MusicPlayer:registration' %}">Register</a>
+<a href="{% url 'MusicPlayer:login' %}">Login</a>
+{% endblock %}
+
+
+{% block content %}
+{% block wel %}
+<h1>welcome</h1>
+{% endblock %}
+<div class="all-singers">
+    <div class="Arijit-Singh singer"><img src="{% static 'img/Arijit sign.jpeg' %}" alt="Arijit Sign">
+    </div>
+    <div class="Lata-Mangeshkar singer"><img src="{% static 'img/Lata-Mangeshkar.avif' %}" alt="Lata-Mangeshkar">
+    </div>
+    <div class="Honey-Singh singer"><img src="{% static 'img/Honey-Singh.jpg' %}" alt="Honey-Singh">
+    </div>
+    <div class="Jubin-Nautiyal singer"><img src="{% static 'img/Jubin-Nautiyal.jpg' %}" alt="Jubin-Nautiyal">
+    </div>
+    <div class="Udit-Narayan singer"><img src="{% static 'img/Udit-Narayan.jpg' %}" alt="Udit-Narayan">
+    </div>
+    <div class="Sonu-Nigam singer"><img src="{% static 'img/Sonu-Nigam.png' %}" alt="Sonu-Nigam">
+    </div>
+    <div class="Alka-Yagnik singer"><img src="{% static 'img/Alka-Yagnik.jpg' %}" alt="Alka-Yagnik">
+    </div>
+    <div class="NehaKakkar singer"><img src="{% static 'img/NehaKakkar.jpg' %}" alt="NehaKakkar">
+    </div>
+    <div class="GuruRandhawa singer"><img src="{% static 'img/GuruRandhawa.jpg' %}" alt="GuruRandhawa">
+    </div>
+    <div class="Karan-Aujla singer"><img src="{% static 'img/Karan-Aujla.jpg' %}" alt="Karan-Aujla">
+    </div>
+    <div class="Anubh-Jain singer"><img src="{% static 'img/Anubh-Jain.webp' %}" alt="Anubh-Jain">
+    </div>
+    <div class="KrishKumar-Kunnadh singer"><img src="{% static 'img/KrishKumar-Kunnadh.jpg' %}" alt="KrishKumar-Kunnadh">
+    </div>
+    <div class="AR-Rahman singer"><img src="{% static 'img/AR-Rahman.jpeg' %}" alt="AR-Rahman">
+    </div>
+    <div class="Diljit-Dosanjh singer"><img src="{% static 'img/Diljit-Dosanjh.jpeg' %}" alt="Diljit-Dosanjh">
+    </div>
+
+</div>
+<footer>
+    <p><b>2017 MyMusic.com</b></p>
+</footer>
+
+{% endblock %}
+
+{%block footer %}
+
+{% endblock %}

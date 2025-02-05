@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+
+{% block menu %}
+<a href="{% url 'MusicPlayer:welcome' %}">Home</a>
+<a href="{% url 'MusicPlayer:registration' %}">Register</a>
+<a href="{% url 'MusicPlayer:login' %}">Login</a>
+{% endblock %}
+{% block content %}
+{% if userStatus  == 1 %}
+<div class='form'>
+<div class="userStatus">
+    <p> Sorry, username already, please try different username.
+    <a href="{% url 'MusicPlayer:registration' %}">Black to Registration form</a></p>
+</div>
+
+{% elif userStatus == 2 %}
+<div class="userStatus"><p>
+    Congratulation!! , User created successfully
+    <a href="{% url 'MusicPlayer:login' %}">Login</a></p>
+</div>
+
+{% elif userStatus == 3 %}
+<div class="userStatus"><p>
+    Opps!! Improper Request
+    <a href="{% url 'MusicPlayer:registration' %}">Black to Registration form</a></p>
+</div>
+</div>
+{% endif %}
+
+
+{% endblock %}
