@@ -128,8 +128,3 @@ import os
 
 MEDIA_URL = "/media/"
 MEDIA_ROOL = os.path.join(BASE_DIR, "media")
-
-import django_heroku
-import dj_database_url
-
-django_heroku.setting(locals())
